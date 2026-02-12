@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-purple: #4b0082;
+            --soft-purple: #dda0dd;
+            --deep-lavender: #6a5acd;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Using a repeating pattern background */
+            background: url('kuromibg.jpg') repeat;
+            background-size: 250px; 
+            margin: 0;
+            overflow: hidden; /* Prevents scrollbars when button moves */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism Card */
+        .main-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(75, 0, 130, 0.2);
+            border: 2px solid var(--soft-purple);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            color: var(--primary-purple);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .message-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
+            color: #2d004d;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .quote {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--deep-lavender);
+            padding: 15px;
+            border-top: 1px solid rgba(211, 211, 211, 0.5);
+            font-weight: 400;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 25px;
+            height: 60px; /* Space for buttons */
+            align-items: center;
+        }
+
+        button {
+            padding: 12px 35px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        #yes {
+            background-color: var(--soft-purple);
+            color: var(--primary-purple);
+            box-shadow: 0 4px 15px rgba(221, 160, 221, 0.4);
+        }
+
+        #yes:hover {
+            transform: scale(1.1);
+            background-color: #ba55d3;
+            color: white;
+        }
+
+        #no {
+            background-color: #f0e68c;
+            color: #4b0082;
+            white-space: nowrap;
+            touch-action: none; /* Critical for mobile evasion */
+            z-index: 1000;
+        }
+
+        /* Floating Background Decorations */
+        .element {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 4s infinite ease-in-out;
+            opacity: 0.6;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        footer {
+            position: fixed;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+            color: var(--primary-purple);
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="element" style="left: 10%; top: 15%;">💜</div>
+    <div class="element" style="right: 15%; top: 20%; animation-delay: 1s;">🌹</div>
+    <div class="element" style="left: 20%; bottom: 20%; animation-delay: 2s;">💕</div>
+    <div class="element" style="right: 10%; bottom: 15%; animation-delay: 1.5s;">✨</div>
+
+    <div class="main-card">
+        <h1>Will You Be My Valentine?</h1>
+        
+        <p class="message-text">
+            Hey Fiona, my dearest love, tomorrow is Valentine's Day. <br>
+            Your smile lights up my world, and I can't imagine celebrating without you. <br>
+            Will you make my dreams come true?
+        </p>
+
+        <div class="quote">
+            "Can't imagine life without my asawa." 💕
+        </div>
+        
+        <div class="buttons">
+            <button id="yes">Yes na yes! 💕</button>
+            <button id="no">Ayoko</button>
+        </div>
+    </div>
+
+    <footer>Made with 💜 and endless love</footer>
+
+    <script>
+        const yesButton = document.getElementById('yes');
+        const noButton = document.getElementById('no');
+
+        function moveButton() {
+            // Calculate random position within viewport
+            const padding = 20;
+            const maxX = window.innerWidth - noButton.offsetWidth - padding;
+            const maxY = window.innerHeight - noButton.offsetHeight - padding;
+
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+            noButton.style.position = 'fixed';
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+        }
+
+        // Move on Hover (Desktop)
+        noButton.addEventListener('mouseover', moveButton);
+
+        // Move on Touch (Mobile)
+        noButton.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Stop click from triggering
+            moveButton();
+        });
+
+        // Vanish if somehow clicked
+        noButton.addEventListener('click', () => {
+            noButton.style.display = 'none';
+        });
+
+        // Success Action
+        yesButton.addEventListener('click', () => {
+            window.location.href = 'page.html'; 
+        });
+    </script>
+</body>
+</html>
